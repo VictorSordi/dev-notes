@@ -1,0 +1,15 @@
+{
+    "name": "dev-notes",
+    "version": "1.0.0",
+    "description": "Um site simples para notas de desenvolvedor",
+    "main": "index.js",
+    "scripts": {
+      "start": "http-server ./"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "http-server": "^14.1.1"
+    }
+  }
+  

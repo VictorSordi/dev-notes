@@ -25,7 +25,7 @@ pipeline {
                 script{
                     scannerHome = tool 'sonar-scanner';
                 }
-                withSonarQubeEnv('sonar-server'){
+                withSonarQubeEnv('sonar-server1'){
                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=redis-app -Dsonar.sources=. -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.token=${env.SONAR_AUTH_TOKEN} -X"
                 }
             }
@@ -38,12 +38,12 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Upload docker image'){
             steps{
                 script {
                     withCredentials([usernamePassword(credentialsId: 'nexus-user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        sh 'docker login -u $USERNAME -p $PASSWORD $(NEXUS_URL)'
+                        sh 'docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}'
                         sh 'docker tag dev-notes/app:latest ${NEXUS_URL}/dev-notes/app'
                         sh 'docker push ${NEXUS_URL}/dev-notes/app'
                     }

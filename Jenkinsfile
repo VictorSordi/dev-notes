@@ -38,13 +38,7 @@ pipeline {
                 }
             }
         }
-
-        stage("Shutdown test containers"){
-        steps{
-            sh 'docker compose down'
-            }
-        }
-
+        
         stage('Upload docker image'){
             steps{
                 script {

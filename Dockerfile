@@ -3,7 +3,7 @@ FROM node:alpine
 WORKDIR /usr/app
 
 COPY ./js/scripts.js ./
-COPY ./css/style.css ./
+COPY ./CSS/style.css ./
 COPY index.html ./
 
 RUN npm install

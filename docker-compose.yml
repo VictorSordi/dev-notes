@@ -1,0 +1,6 @@
+version: '3'
+services:
+  dev-notes:
+    build: .
+    ports:
+      - 8070:8070

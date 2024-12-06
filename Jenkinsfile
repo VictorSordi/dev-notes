@@ -50,5 +50,11 @@ pipeline {
                 }
             }
         }
+
+        stage("Apply kubernetes files"){
+            steps{
+                sh '/usr/local/bin/kubectl apply -f ./k3s/dev-notes.yaml'
+            }
+        }
     }
 }

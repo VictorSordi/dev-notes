@@ -39,6 +39,12 @@ pipeline {
             }
         }
 
+        stage('Shutdown docker containers') {
+            steps{
+                sh 'docker compose down'
+            }
+        }
+
         stage('Upload docker image'){
             steps{
                 script {

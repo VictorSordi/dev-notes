@@ -1,10 +1,14 @@
 pipeline {
     agent any
 
+    environment {
+        TAG = sh(script: 'git describe --abbrev=0',,returnStdout: true), trim()
+    }
+
     stages {
         stage('build docker image'){
         steps{
-            sh 'docker build -t dev-notes/app .'
+            sh 'docker build -t dev-notes/app:${TAG} .'
             }
         }
     
@@ -50,8 +54,8 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'nexus-user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh 'docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}'
-                        sh 'docker tag dev-notes/app:latest ${NEXUS_URL}/dev-notes/app'
-                        sh 'docker push ${NEXUS_URL}/dev-notes/app'
+                        sh 'docker tag dev-notes/app:${TAG} ${NEXUS_URL}/dev-notes/app:${TAG}'
+                        sh 'docker push ${NEXUS_URL}/dev-notes/app:${TAG}'
                     }
                 }
             }
